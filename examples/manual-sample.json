@@ -6,6 +6,7 @@
       "provider": "Custom",
       "status": "available",
       "short_pct": 33,
+      "week_pct": 44,
       "cycle_pct": 50,
       "latency_ms": 120
     },
@@ -14,6 +15,7 @@
       "provider": "Custom",
       "status": "warning",
       "short_pct": 71,
+      "week_pct": 82,
       "cycle_pct": 90
     }
   ]

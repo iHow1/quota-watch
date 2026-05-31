@@ -30,6 +30,7 @@ export const manualJsonAdapter: Adapter = {
       kind: String(r.kind ?? 'manual'),
       status: coerceStatus(r.status),
       shortWindowPercent: num(r.shortWindowPercent ?? r.short_pct),
+      weekPercent: num(r.weekPercent ?? r.week_pct ?? r.weeklyPercent ?? r.weekly_pct),
       cyclePercent: num(r.cyclePercent ?? r.cycle_pct),
       latencyMs: num(r.latencyMs ?? r.latency_ms),
       resetAt: r.resetAt ? String(r.resetAt) : undefined,

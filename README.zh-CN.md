@@ -36,6 +36,17 @@ npm run demo
 
 英文窗口版桌面图：[`docs/images/demo-desktop.png`](docs/images/demo-desktop.png)。
 
+
+### 指标说明
+
+当前 demo 同时展示三类百分比：
+
+- `5h window` / `5小时窗口`：短窗口用量，用来判断近期是否快触顶；
+- `Week` / `周额度`：本周用量；
+- `Cycle` / `周期额度`：账单周期或自定义周期用量。
+
+不同 provider 暴露的数据不一样，缺哪个字段就不显示那条进度。
+
 ## 使用自己的数据
 
 复制环境变量模板：

@@ -9,6 +9,7 @@
       "kind": "api_key",
       "status": "available",
       "shortWindowPercent": 42,
+      "weekPercent": 58,
       "cyclePercent": 61,
       "latencyMs": 180,
       "resetAt": "2026-06-01T00:00:00Z"
@@ -20,6 +21,7 @@
       "kind": "gateway",
       "status": "warning",
       "shortWindowPercent": 78,
+      "weekPercent": 76,
       "cyclePercent": 84,
       "latencyMs": 230,
       "resetAt": "2026-06-01T00:00:00Z"
@@ -31,6 +33,7 @@
       "kind": "endpoint",
       "status": "available",
       "shortWindowPercent": 12,
+      "weekPercent": 18,
       "cyclePercent": 20,
       "latencyMs": 40
     },
@@ -41,6 +44,7 @@
       "kind": "api_key",
       "status": "exhausted",
       "shortWindowPercent": 100,
+      "weekPercent": 96,
       "cyclePercent": 100,
       "latencyMs": 210,
       "resetAt": "2026-06-01T00:00:00Z"

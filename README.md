@@ -36,11 +36,11 @@ Other scripts: `npm run build` (typecheck + compile to `dist/`), `npm test` (ada
 
 ## Demo screenshot
 
-![Quota Watch desktop demo](docs/images/demo-desktop.png)
+![Quota Watch translucent desktop widget demo](docs/images/demo-widget-en.png)
 
 Run `npm run demo` and open `http://localhost:4319`. The dashboard renders the fake `examples/demo-quotas.json`, so any screenshot you take contains **no real data**.
 
-Raw dashboard screenshot: [`docs/images/demo-dashboard.png`](docs/images/demo-dashboard.png).
+Raw dashboard screenshot: [`docs/images/demo-dashboard.png`](docs/images/demo-dashboard.png). Browser-window mockup: [`docs/images/demo-desktop.png`](docs/images/demo-desktop.png).
 
 ## Safety Boundary
 
@@ -72,7 +72,8 @@ export interface QuotaResource {
   kind: string;                 // api_key | gateway | endpoint | manual ...
   status: 'available' | 'warning' | 'exhausted' | 'error' | 'unknown';
   shortWindowPercent?: number;  // e.g. last 5h
-  cyclePercent?: number;        // weekly/monthly
+  weekPercent?: number;         // weekly usage
+  cyclePercent?: number;        // monthly/custom billing cycle
   latencyMs?: number;
   resetAt?: string;
   updatedAt?: string;

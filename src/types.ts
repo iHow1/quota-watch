@@ -17,7 +17,9 @@ export interface QuotaResource {
   status: ResourceStatus;
   /** short rolling window usage %, e.g. last 5h */
   shortWindowPercent?: number;
-  /** billing cycle usage %, e.g. weekly/monthly */
+  /** weekly usage %, if the provider/tool exposes it */
+  weekPercent?: number;
+  /** billing cycle usage %, e.g. monthly/custom cycle */
   cyclePercent?: number;
   latencyMs?: number;
   resetAt?: string;
