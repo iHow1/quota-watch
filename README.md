@@ -36,9 +36,11 @@ Other scripts: `npm run build` (typecheck + compile to `dist/`), `npm test` (ada
 
 ## Demo screenshot
 
-![Quota Watch demo dashboard](docs/images/demo-dashboard.png)
+![Quota Watch desktop demo](docs/images/demo-desktop.png)
 
 Run `npm run demo` and open `http://localhost:4319`. The dashboard renders the fake `examples/demo-quotas.json`, so any screenshot you take contains **no real data**.
+
+Raw dashboard screenshot: [`docs/images/demo-dashboard.png`](docs/images/demo-dashboard.png).
 
 ## Safety Boundary
 
