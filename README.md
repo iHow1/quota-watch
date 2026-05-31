@@ -4,6 +4,8 @@
 
 Credentials stay local. Read-only. Runs with zero config on fake demo data.
 
+[中文说明](README.zh-CN.md)
+
 ## Why
 
 If you run several AI keys, gateways, or local model endpoints across a few tools and agents, it's easy to lose track of which one is near a budget threshold or quietly unreachable. Quota Watch gives you a single local **usage radar** — provider health and budget awareness at a glance — without sending anything to the cloud.
@@ -33,6 +35,8 @@ npm run dev
 Other scripts: `npm run build` (typecheck + compile to `dist/`), `npm test` (adapter tests).
 
 ## Demo screenshot
+
+![Quota Watch demo dashboard](docs/images/demo-dashboard.png)
 
 Run `npm run demo` and open `http://localhost:4319`. The dashboard renders the fake `examples/demo-quotas.json`, so any screenshot you take contains **no real data**.
 
