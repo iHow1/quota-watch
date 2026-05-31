@@ -28,11 +28,13 @@ npm run demo
 
 ## Demo 截图
 
-![Quota Watch 桌面演示](docs/images/demo-desktop.png)
+![Quota Watch 中文桌面组件演示](docs/images/demo-widget-zh.png)
 
-截图来自 `npm run demo` 的内置假数据，不包含真实账号、真实额度或真实 provider 数据。
+下图是基于 `npm run demo` 内置假数据制作的半透明桌面组件演示，不包含真实账号、真实额度或真实 provider 数据。
 
 原始 dashboard 截图：[`docs/images/demo-dashboard.png`](docs/images/demo-dashboard.png)。
+
+英文窗口版桌面图：[`docs/images/demo-desktop.png`](docs/images/demo-desktop.png)。
 
 ## 使用自己的数据
 
