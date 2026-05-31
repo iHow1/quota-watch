@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-05-31T03:30:00Z",
+  "note": "All data here is fake and for demo only. No real accounts, keys, or provider state.",
+  "resources": [
+    {
+      "id": "demo-openai-main",
+      "provider": "OpenAI-compatible",
+      "displayName": "Main API Key",
+      "kind": "api_key",
+      "status": "available",
+      "shortWindowPercent": 42,
+      "cyclePercent": 61,
+      "latencyMs": 180,
+      "resetAt": "2026-06-01T00:00:00Z"
+    },
+    {
+      "id": "demo-litellm-team",
+      "provider": "LiteLLM",
+      "displayName": "Team Gateway",
+      "kind": "gateway",
+      "status": "warning",
+      "shortWindowPercent": 78,
+      "cyclePercent": 84,
+      "latencyMs": 230,
+      "resetAt": "2026-06-01T00:00:00Z"
+    },
+    {
+      "id": "demo-local-llm",
+      "provider": "Local",
+      "displayName": "Local Llama Server",
+      "kind": "endpoint",
+      "status": "available",
+      "shortWindowPercent": 12,
+      "cyclePercent": 20,
+      "latencyMs": 40
+    },
+    {
+      "id": "demo-vision-key",
+      "provider": "OpenAI-compatible",
+      "displayName": "Vision Key",
+      "kind": "api_key",
+      "status": "exhausted",
+      "shortWindowPercent": 100,
+      "cyclePercent": 100,
+      "latencyMs": 210,
+      "resetAt": "2026-06-01T00:00:00Z"
+    },
+    {
+      "id": "demo-backup-gw",
+      "provider": "LiteLLM",
+      "displayName": "Backup Gateway",
+      "kind": "gateway",
+      "status": "error",
+      "latencyMs": 0,
+      "note": "unreachable"
+    },
+    {
+      "id": "demo-eval-key",
+      "provider": "OpenAI-compatible",
+      "displayName": "Eval Sandbox",
+      "kind": "api_key",
+      "status": "unknown",
+      "note": "no usage data returned"
+    }
+  ]
+}

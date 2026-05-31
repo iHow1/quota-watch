@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quota Watch</title>
+<style>
+ :root{
+  --bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--line:#262d38;--ink:#e6edf3;--ink2:#9aa7b4;--ink3:#6b7685;
+  --ok:#3fb950;--warn:#d29922;--exh:#db6d28;--err:#f85149;--unk:#6b7685;--accent:#58a6ff;
+  --mono:'SF Mono',ui-monospace,Menlo,monospace;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:1080px;margin:0 auto;padding:28px 22px 80px}
+ header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+ .logo{font-size:19px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+ .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(63,185,80,.18)}
+ .sub{font-size:12.5px;color:var(--ink3)}
+ .spacer{flex:1}
+ .chip{font:11.5px var(--mono);color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+ .btn{font:12.5px var(--sans);font-weight:600;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 13px;cursor:pointer;transition:.15s}
+ .btn:hover{border-color:var(--accent);color:var(--accent)}
+ .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+ .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+ .stat .l{font-size:12px;color:var(--ink3);font-weight:600}
+ .stat .v{font-size:30px;font-weight:750;letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+ .stat.attn .v{color:var(--warn)}
+ .group{margin-bottom:24px}
+ .group h2{font-size:13px;font-weight:650;color:var(--ink2);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+ .group h2 .n{font:11px var(--mono);color:var(--ink3);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+ .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+ .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 17px;transition:.18s}
+ .card:hover{border-color:#39414e}
+ .crow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+ .name{font-size:14.5px;font-weight:650;letter-spacing:-.01em}
+ .meta{font-size:11.5px;color:var(--ink3);margin-top:2px}
+ .badge{font:10.5px var(--mono);font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;display:inline-flex;align-items:center;gap:5px}
+ .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+ .b-available{color:var(--ok);background:rgba(63,185,80,.12)}
+ .b-warning{color:var(--warn);background:rgba(210,153,34,.12)}
+ .b-exhausted{color:var(--exh);background:rgba(219,109,40,.14)}
+ .b-error{color:var(--err);background:rgba(248,81,73,.13)}
+ .b-unknown{color:var(--unk);background:rgba(107,118,133,.14)}
+ .bars{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+ .bar .bl{display:flex;justify-content:space-between;font-size:11px;color:var(--ink2);margin-bottom:4px}
+ .bar .bl b{font-variant-numeric:tabular-nums;color:var(--ink)}
+ .track{height:6px;background:var(--panel2);border-radius:4px;overflow:hidden}
+ .fill{height:100%;border-radius:4px;transition:width .5s ease}
+ .foot{margin-top:13px;padding-top:11px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font:11px var(--mono);color:var(--ink3)}
+ .empty{text-align:center;color:var(--ink3);padding:50px;font-size:13px;border:1px dashed var(--line);border-radius:14px}
+ footer{margin-top:34px;font-size:11.5px;color:var(--ink3);border-top:1px solid var(--line);padding-top:16px;line-height:1.9}
+ footer b{color:var(--ink2)}
+ @media(max-width:680px){.summary{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="wrap">
+ <header>
+  <div>
+   <div class="logo"><span class="dot" id="health-dot"></span>Quota Watch</div>
+   <div class="sub">Local-first AI quota &amp; provider-health radar</div>
+  </div>
+  <div class="spacer"></div>
+  <span class="chip" id="source">source: —</span>
+  <span class="chip" id="updated">—</span>
+  <button class="btn" onclick="load()">Refresh</button>
+ </header>
+
+ <div class="summary">
+  <div class="stat"><div class="l">Resources</div><div class="v" id="s-total">—</div></div>
+  <div class="stat"><div class="l">Available</div><div class="v" id="s-ok">—</div></div>
+  <div class="stat attn"><div class="l">Needs attention</div><div class="v" id="s-attn">—</div></div>
+ </div>
+
+ <div id="groups"></div>
+
+ <footer>
+  <b>Local-first · read-only.</b> Credentials stay on your machine. Demo data is fake.<br>
+  This tool monitors quota/usage/health for endpoints you explicitly configure. It only observes — it is not in the request path and takes no action against any provider.
+ </footer>
+</div>
+
+<script>
+const STATUS_FILL={available:'var(--ok)',warning:'var(--warn)',exhausted:'var(--exh)',error:'var(--err)',unknown:'var(--unk)'};
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function pct(v){return (v==null||isNaN(v))?null:Math.max(0,Math.min(100,v));}
+function bar(label,v){
+ const p=pct(v); if(p==null) return '';
+ const col=p>=90?'var(--err)':p>=75?'var(--warn)':'var(--ok)';
+ return `<div class="bar"><div class="bl"><span>${label}</span><b>${p}%</b></div><div class="track"><div class="fill" style="width:${p}%;background:${col}"></div></div></div>`;
+}
+function card(r){
+ const s=r.status||'unknown';
+ const reset=r.resetAt?('resets '+new Date(r.resetAt).toLocaleDateString()):'';
+ const lat=(r.latencyMs!=null&&r.latencyMs>0)?(r.latencyMs+'ms'):'';
+ return `<div class="card">
+  <div class="crow"><div><div class="name">${esc(r.displayName)}</div><div class="meta">${esc(r.provider)} · ${esc(r.kind)}${r.note?(' · '+esc(r.note)):''}</div></div>
+   <span class="badge b-${s}">${s}</span></div>
+  <div class="bars">${bar('Short window',r.shortWindowPercent)}${bar('Cycle',r.cyclePercent)}</div>
+  <div class="foot"><span>${lat}</span><span>${reset}</span></div>
+ </div>`;
+}
+function render(data){
+ const rs=data.resources||[];
+ document.getElementById('source').textContent='source: '+(data.source||'—');
+ document.getElementById('updated').textContent=new Date(data.generatedAt||Date.now()).toLocaleTimeString();
+ document.getElementById('s-total').textContent=rs.length;
+ document.getElementById('s-ok').textContent=rs.filter(r=>r.status==='available').length;
+ const attn=rs.filter(r=>['warning','exhausted','error'].includes(r.status)).length;
+ document.getElementById('s-attn').textContent=attn;
+ const dot=document.getElementById('health-dot');
+ dot.style.background=attn>0?'var(--warn)':'var(--ok)';
+ dot.style.boxShadow=`0 0 0 3px ${attn>0?'rgba(210,153,34,.18)':'rgba(63,185,80,.18)'}`;
+ const groups={};
+ for(const r of rs){(groups[r.provider]=groups[r.provider]||[]).push(r);}
+ const el=document.getElementById('groups');
+ if(!rs.length){el.innerHTML='<div class="empty">No resources. Configure an adapter or run with demo data.</div>';return;}
+ el.innerHTML=Object.entries(groups).map(([prov,list])=>
+  `<div class="group"><h2>${esc(prov)} <span class="n">${list.length}</span></h2><div class="grid">${list.map(card).join('')}</div></div>`).join('');
+}
+async function load(){
+ try{const res=await fetch('/api/resources');render(await res.json());}
+ catch(e){document.getElementById('groups').innerHTML='<div class="empty">Failed to load: '+esc(e.message)+'</div>';}
+}
+load();
+setInterval(load,60000);
+</script>
+</body></html>

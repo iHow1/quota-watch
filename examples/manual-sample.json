@@ -1,0 +1,20 @@
+{
+  "note": "Example of a user-exported usage file. Point QW_MANUAL_FILE at your own copy. Keep it local; never commit real data.",
+  "resources": [
+    {
+      "name": "My Exported Tool",
+      "provider": "Custom",
+      "status": "available",
+      "short_pct": 33,
+      "cycle_pct": 50,
+      "latency_ms": 120
+    },
+    {
+      "name": "Secondary Budget",
+      "provider": "Custom",
+      "status": "warning",
+      "short_pct": 71,
+      "cycle_pct": 90
+    }
+  ]
+}
